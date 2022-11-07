@@ -13,8 +13,9 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
-
 from reviews.models import Category, Comment, Genre, Review, Title
+from users.models import User
+
 from .filters import TitleFilter
 from .mixins import MixinSet
 from .permissions import (IsAdmin, IsAdminOrReadOnly,
@@ -25,7 +26,6 @@ from .serializers import (CategorySerializer, CommentSerializer,
                           TitleCreateSerializer, TitleListSerializer,
                           UserRestrictedSerializer, UserSerializer)
 from .utils import get_confirmation_code, send_confirmation_code
-from users.models import User
 
 
 class SignUpView(APIView):
