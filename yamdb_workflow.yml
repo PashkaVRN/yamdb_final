@@ -58,19 +58,11 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-            sudo docker-compose stop
-            sudo docker-compose rm web
-            cd infra/
-            rm .env
-            touch .env
-            echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
-            echo DB_NAME=${{ secrets.DB_NAME }} >> .env
-            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
-            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
-            echo DB_HOST=${{ secrets.DB_HOST }} >> .env
-            echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-            cd ..
-            sudo docker-compose up -d
+          # Выполняет pull образа с DockerHub
+          sudo docker pull pashkavrn/none:latest
+          #остановка всех контейнеров
+          sudo docker stop $(sudo docker ps -a -q)
+          sudo docker run --rm -d -p 5000:5000 pashkavrn/none:latest
 
   send_message:
     runs-on: ubuntu-latest
